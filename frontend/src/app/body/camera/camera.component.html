@@ -1,3 +1,10 @@
 <div>
-  <webcam></webcam>
+  <webcam [height]="400" [width]="400" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+          [videoOptions]="videoOptions"
+          [imageQuality]="1"
+          (initError)="handleInitError($event)"
+  ></webcam>  
+<div class="snapshot" *ngIf="webcamImage">
+  <img [height]="150" [src]="webcamImage.imageAsDataUrl"/>
+</div>
 </div>

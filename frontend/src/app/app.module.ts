@@ -8,6 +8,7 @@ import { BodyComponent } from './body/body.component';
 import { CameraComponent } from './body/camera/camera.component';
 import { VideoComponent } from './body/video/video.component';
 import {WebcamModule} from 'ngx-webcam';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {WebcamModule} from 'ngx-webcam';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    WebcamModule
+    WebcamModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
