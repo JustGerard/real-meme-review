@@ -1,24 +1,14 @@
-import json
-
 from django.db import models
-from django.utils import timezone
 
 
 class Video(models.Model):
     url = models.CharField(max_length=200)
-    quality = models.FloatField()
-    views = models.BigIntegerField()
-    date = models.DateTimeField(default=timezone.now)
+    quality = models.FloatField(blank=True, default=0.0)
+    views = models.IntegerField(blank=True, default=0)
+    length = models.IntegerField()
 
-    @property
-    def to_dict(self):
-        data = {
-            'url': json.loads(self.url),
-            'date': self.date,
-            'quality': self.quality,
-            'views': self.views
-        }
-        return data
+    class Meta:
+        ordering = ('quality',)
 
     def __str__(self):
         return self.url
@@ -26,4 +16,10 @@ class Video(models.Model):
 
 class Ranking(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
-    position = models.BigIntegerField()
+    position = models.IntegerField()
+
+    class Meta:
+        ordering = ('position',)
+
+    def __str__(self):
+        return self.position
