@@ -4,4 +4,10 @@
                 fxLayoutAlign="center center"
                 frameborder="0" allowfullscreen></iframe>
     </div>
+    <ul>
+        <li *ngFor="let video of videos">
+            {{video.url}}
+        </li>
+    </ul>
+    
 </div>
