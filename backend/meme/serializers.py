@@ -1,4 +1,4 @@
-from django.http import Http404, JsonResponse
+from django.http import Http404
 from rest_framework import serializers
 
 from meme.models import Video, Ranking

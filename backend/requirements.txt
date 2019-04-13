@@ -1,0 +1,11 @@
+selenium
+requests
+isodate
+django
+django-environ
+django-cors-headers
+djangorestframework
+google-api-python-client
+numpy
+pillow
+opencv-python
