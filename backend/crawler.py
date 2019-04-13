@@ -21,8 +21,8 @@ class VideoItem:
 
 
 def send_video_to_database(video):
-    payload = {'id': video.video_id, 'length': video.duration}
-    requests.post(addres + "/api/insert", data=payload)
+    payload = {'url': video.video_id, 'length': video.duration}
+    requests.post(addres + "/api/insert/", data=payload)
 
 
 def crawl_youtube_api(__id, depth):
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     duration_limit = 60 * 4
     max_depth = 100
     to_visit_limit = 100
-    addres = "localhost:8000"
+    addres = "http://127.0.0.1:8000"
     # crawl_youtube_api(link_id, 0)
     browser = webdriver.Firefox()
     crawl_selenium(link_id)
