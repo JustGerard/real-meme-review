@@ -2,12 +2,10 @@
     <div fxLayout="row">
         <iframe [src]="link" 
                 fxLayoutAlign="center center"
-                frameborder="0" allowfullscreen></iframe>
+                frameborder="0" allowfullscreen="1" autoplay="1"></iframe>
     </div>
+    <button (click)="playNextVideo()">Play next</button>   
     <ul>
-        <li *ngFor="let video of videos">
-            {{video.url}}
-        </li>
-    </ul>
-    
+        <li *ngFor="let video of videos">{{video.url}}</li>
+    </ul> 
 </div>

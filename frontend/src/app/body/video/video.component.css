@@ -7,3 +7,11 @@ iframe {
 #outer{
     align-content: center;
 }
+button {
+    background-color: rgb(238,238,238);
+    border-radius: 3px;
+    border: 3px solid rgb(137, 125, 238);
+    padding: 0.5vw;
+    font-size: 1vw;
+    margin-left: 4.75vw;
+}

@@ -5,8 +5,8 @@ import { Video } from './video';
   providedIn: 'root'
 })
 export class VideoService {
-
-  getVideosUrl: string;
+  base_url = "127.0.0.1:8000";
+  getVideosUrl = this.base_url + "/api/insert";
   constructor(private http: HttpClient) { }
 
   public getVideos() {

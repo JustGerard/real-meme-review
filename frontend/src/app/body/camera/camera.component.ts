@@ -30,8 +30,8 @@ export class CameraComponent implements OnInit {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
       });
 
-    this.sub = timer(1000, 1000);
-    this.sub.subscribe(tick => this.triggerSnapshot());
+    // this.sub = timer(1000, 1000);
+    // this.sub.subscribe(tick => this.triggerSnapshot());
   }
 
   public triggerSnapshot(): void {

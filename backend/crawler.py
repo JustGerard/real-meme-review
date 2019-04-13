@@ -98,7 +98,7 @@ if __name__ == "__main__":
     api_version = "v3"
     starting_link = "https://www.youtube.com/watch?v=EWF8Nfm-LLk"
     link_id = starting_link.split('watch?v=')[-1]
-    DEVELOPER_KEY = os.environ['API_KEY']
+    DEVELOPER_KEY = "AIzaSyDyWdWKIvAGNNYI0mOCmTVWrDlXnaOVdAg"
     duration_limit = 60 * 4
     max_depth = 100
     to_visit_limit = 100
