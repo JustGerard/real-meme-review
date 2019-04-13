@@ -14,10 +14,7 @@ export class CameraComponent implements OnInit {
   public allowCameraSwitch = true;
   public multipleWebcamsAvailable = false;
   public deviceId: string;
-  public videoOptions: MediaTrackConstraints = {
-    // width: {ideal: 1024},
-    // height: {ideal: 576}
-  };
+  public videoOptions: MediaTrackConstraints;
   public errors: WebcamInitError[] = [];
 
   // latest snapshot
@@ -25,8 +22,6 @@ export class CameraComponent implements OnInit {
 
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
-  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
-  private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
   private sub = null;
 
   public ngOnInit(): void {

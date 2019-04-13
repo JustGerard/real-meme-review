@@ -9,6 +9,7 @@ import { CameraComponent } from './body/camera/camera.component';
 import { VideoComponent } from './body/video/video.component';
 import {WebcamModule} from 'ngx-webcam';
 import {FormsModule} from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {FormsModule} from '@angular/forms';
     HeaderComponent,
     BodyComponent,
     CameraComponent,
-    VideoComponent
+    VideoComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
