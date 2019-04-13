@@ -1,4 +1,9 @@
 iframe {
     width:30vw;
     height:25vw;
+    margin-right: 3.25vw;
+    margin-left: 4.75vw;
+}
+#outer{
+    align-content: center;
 }

@@ -1,1 +1,13 @@
-<iframe  src="https://www.youtube.com/embed/CEzSXX3tcmU" frameborder="0" allowfullscreen ></iframe>
+<div id="outer">
+    <div fxLayout="row">
+        <iframe [src]="link" 
+                fxLayoutAlign="center center"
+                frameborder="0" allowfullscreen></iframe>
+    </div>
+    <ul>
+        <li *ngFor="let video of videos">
+            {{video.url}}
+        </li>
+    </ul>
+    
+</div>

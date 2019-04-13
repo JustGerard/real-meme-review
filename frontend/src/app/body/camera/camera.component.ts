@@ -45,10 +45,16 @@ export class CameraComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     console.info('received webcam image', webcamImage);
     this.webcamImage = webcamImage;
+    this.sendImageToBack(webcamImage);
   }
 
   public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();
+  }
+
+  private sendImageToBack(webcamImage: WebcamImage): void {
+    console.log("Imamge send to backend!");
+    //request z webcamImage.imageAsBase64 do backendu
   }
 
 }
