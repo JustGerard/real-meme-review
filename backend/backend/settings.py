@@ -28,6 +28,7 @@ env = environ.Env(
 environ.Env.read_env()
 
 SECRET_KEY = env('SECRET_KEY')
+API_KEY = env('API_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
