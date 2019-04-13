@@ -4,9 +4,9 @@ from rest_framework import routers
 from meme import views
 
 router = routers.DefaultRouter()
-router.register(r'ranking', views.RankingViewSet)
-router.register(r'videos', views.VideoViewSet)
+router.register(r'ranking', views.RankingViewSet, basename='ranking')
+router.register(r'insert', views.VideoViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('api/', include(router.urls))
 ]
