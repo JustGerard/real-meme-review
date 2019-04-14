@@ -21,9 +21,16 @@ class VideoItem:
 
 
 def send_video_to_database(video):
+    response = requests.get(addres + "/api/insert/")
+    response = json.loads(response.content)
+    for res in response['results']:
+        if res['url'] == video.video_id:
+            print("file already in the database")
+            return
     payload = {'url': video.video_id, 'length': video.duration}
     try:
         requests.post(addres + "/api/insert/", data=payload)
+        print("Saved video with id: " + video.video_id)
     except:
         pass
 
@@ -92,7 +99,6 @@ def crawl_selenium(__id):
         if duration <= duration_limit and not ad:
             # recommended.append(VideoItem(curr, duration))
             send_video_to_database(VideoItem(curr, duration))
-            print("Saved video with id: " + curr)
         temp = []
         while len(temp) == 0:
             elements = browser.find_elements_by_xpath('//a[contains(@href, "' + text + '")]')
@@ -116,7 +122,7 @@ if __name__ == "__main__":
     duration_limit = 60 * 4
     max_depth = 100
     to_visit_limit = 100
-    addres = "https://real-meme-review.herokuapp.com"
+    addres = "http://127.0.0.1:8000"
     # crawl_youtube_api(link_id, 0)
     browser = webdriver.Firefox()
     crawl_selenium(link_id)

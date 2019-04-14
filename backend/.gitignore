@@ -186,4 +186,4 @@ $RECYCLE.BIN/
 /haarcascade_frontalface_default.xml
 /geckodriver.exe
 staticfiles
-/meme/migrations/*.
+meme/migrations/*.
