@@ -122,7 +122,7 @@ if __name__ == "__main__":
     duration_limit = 60 * 4
     max_depth = 100
     to_visit_limit = 100
-    addres = "http://127.0.0.1:8000"
+    addres = "https://real-meme-review-backend.herokuapp.com"
     # crawl_youtube_api(link_id, 0)
     browser = webdriver.Firefox()
     crawl_selenium(link_id)
