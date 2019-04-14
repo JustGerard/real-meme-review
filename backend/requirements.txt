@@ -9,3 +9,7 @@ google-api-python-client
 numpy
 pillow
 opencv-python
+gunicorn
+dj-database-url
+whitenoise
+psycopg2

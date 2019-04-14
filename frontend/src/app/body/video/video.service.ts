@@ -8,7 +8,7 @@ import { GetResponse } from './getresponse';
   providedIn: 'root'
 })
 export class VideoService {
-  base_url = "http://127.0.0.1:8000";
+  base_url = "https://real-meme-review-backend.herokuapp.com";
   videosUrl = this.base_url + "/api/insert/";
   _url: string = "assets/videos.json";
   constructor(private http: HttpClient) { }
@@ -17,5 +17,4 @@ export class VideoService {
    return this.http.get<GetResponse>(this.videosUrl);
  }
 }
-
 

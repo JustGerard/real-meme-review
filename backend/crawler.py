@@ -22,7 +22,10 @@ class VideoItem:
 
 def send_video_to_database(video):
     payload = {'url': video.video_id, 'length': video.duration}
-    requests.post(addres + "/api/insert/", data=payload)
+    try:
+        requests.post(addres + "/api/insert/", data=payload)
+    except:
+        pass
 
 
 def crawl_youtube_api(__id, depth):
@@ -65,26 +68,37 @@ def crawl_selenium(__id):
     to_visit.append(__id)
     recommended = []
     text = "/watch?v="
+    muted = False
     while True:
         curr = to_visit[0]
         browser.get(request + curr)
         to_visit = to_visit[1:]
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, 1)
+        if not muted:
+            mute_button = wait.until(ec.visibility_of_element_located((By.CLASS_NAME, "ytp-mute-button")))
+            mute_button.click()
+            muted = True
         try:
             time = wait.until(ec.visibility_of_element_located((By.CLASS_NAME, "ytp-time-duration"))).text
         except:
             continue
+        try:
+            wait.until(ec.visibility_of_element_located((By.CLASS_NAME, "ytp-ad-preview-container")))
+            ad = True
+        except:
+            ad = False
+            pass
         duration = int(int(time.split(':')[-1]) + int(time.split(":")[0]) * 60)
-        if duration <= duration_limit:
+        if duration <= duration_limit and not ad:
             # recommended.append(VideoItem(curr, duration))
             send_video_to_database(VideoItem(curr, duration))
-            print(curr)
+            print("Saved video with id: " + curr)
         temp = []
         while len(temp) == 0:
             elements = browser.find_elements_by_xpath('//a[contains(@href, "' + text + '")]')
             elements = elements[1:]
             for elem in elements:
-                if "list" not in elem.get_attribute('href'):
+                if "list" not in elem.get_attribute('href') and "?t=" not in elem.get_attribute('href'):
                     temp.append(elem.get_attribute('href'))
         for elem in temp:
             to_visit.append(elem.split('watch?v=')[-1])
@@ -102,7 +116,7 @@ if __name__ == "__main__":
     duration_limit = 60 * 4
     max_depth = 100
     to_visit_limit = 100
-    addres = "http://127.0.0.1:8000"
+    addres = "https://real-meme-review.herokuapp.com"
     # crawl_youtube_api(link_id, 0)
     browser = webdriver.Firefox()
     crawl_selenium(link_id)
