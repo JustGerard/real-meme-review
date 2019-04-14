@@ -13,17 +13,6 @@ class VideoSerializer(serializers.Serializer):
     def create(self, validated_data):
         return Video.objects.create(**validated_data)
 
-    # def update(self, instance, validated_data):
-    #     instance.url = instance.url
-    #     tmp = 1  # TODO open.cv
-    #     instance.quality = (validated_data.get('quality', instance.quality) * instance.views + tmp) / (
-    #     instance.views + 1)
-    #     instance.views = validated_data.get('views', instance.views)
-    #     instance.views = instance.views + 1
-    #     instance.length = instance.length
-    #     instance.save()
-    #     return instance
-
     def update(self, request, pk):
         try:
             video = Video.objects.get(Video, pk=pk)
@@ -37,13 +26,7 @@ class VideoSerializer(serializers.Serializer):
             video.views = video.views + 1
             video.length = video.length
             video.save()
-            # response = {}
-            # response["Access-Control-Allow-Origin"] = "*"
-            # response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-            # response["Access-Control-Max-Age"] = "1000"
-            # response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
-        #
-        # return JsonResponse(response)
+
         return video
 
 

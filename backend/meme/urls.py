@@ -9,5 +9,4 @@ router.register(r'insert', views.VideoViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    # path('insert/<int:pk>/', views.VideoViewSet.partial_update)
 ]
