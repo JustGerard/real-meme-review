@@ -8,4 +8,6 @@ div {
     padding-bottom: 1vw;
     margin-left: 15vw;
     margin-right: 15vw;
+    border-top-left-radius: 1.5vw;
+    border-top-right-radius: 1.5vw;
 }

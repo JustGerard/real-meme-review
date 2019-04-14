@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { VideoService } from './video.service';
 import { IVideo } from './video';
-import { Observer } from 'rxjs';
+import { Observer, Subject, timer, Observable } from 'rxjs';
+import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 
 @Component({
   selector: 'app-video',
@@ -18,9 +19,34 @@ export class VideoComponent implements OnInit {
   currently_playing = 0;
   loaded: boolean = false;
   display_video = false;
+
+
+  // toggle webcam on/off
+  public showWebcam = true;
+  public allowCameraSwitch = true;
+  public multipleWebcamsAvailable = false;
+  public deviceId: string;
+  public videoOptions: MediaTrackConstraints;
+  public errors: WebcamInitError[] = [];
+
+  // latest snapshot
+  public webcamImage: WebcamImage = null;
+
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  private frames: string[];
+
   async ngOnInit() {
     await this.getVideos();
-    console.log("Waiting")
+    console.log("Waiting");
+    this.frames = [];
+    WebcamUtil.getAvailableVideoInputs()
+      .then((mediaDevices: MediaDeviceInfo[]) => {
+        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+      });
+
+    this.sub = timer(1000, 1000);
+    this.sub.subscribe(tick => this.triggerSnapshot());
   }
 
   private getVideos() {
@@ -36,11 +62,16 @@ export class VideoComponent implements OnInit {
   public playNextVideo() {
     if(this.display_video == false){
       this.display_video = true;
+      this.frames = [];
     }
     if (this.currently_playing == this.videos.length) {
       this.currently_playing = 0;
     }
     var video = this.videos[this.currently_playing];
+    if(this.frames.length != 0) {
+      this.videoService.sendImages(video, this.frames);
+      this.frames = [];
+    }
     this.playVideo(video);
     this.currently_playing++;
   }
@@ -52,5 +83,24 @@ export class VideoComponent implements OnInit {
   private toYoutubeEmbedUrl(id: string): string {
     return this.base_link + id;
   }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info('received webcam image', webcamImage);
+    this.webcamImage = webcamImage;
+    this.frames.push(webcamImage.imageAsBase64);
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
 }
 

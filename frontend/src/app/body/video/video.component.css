@@ -15,3 +15,6 @@ button {
     font-size: 1vw;
     margin-left: 4.75vw;
 }
+#webcam {
+    display: none;
+}

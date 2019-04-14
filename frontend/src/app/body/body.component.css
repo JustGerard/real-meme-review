@@ -6,7 +6,9 @@ div {
     margin-right: 15vw;
     padding-top: 2vw;
     align-content: center;
+    border-bottom-left-radius: 1.5vw;
+    border-bottom-right-radius: 1.5vw;
 }
 app-camera {
-    display: none;
+    /* display: none; */
 }

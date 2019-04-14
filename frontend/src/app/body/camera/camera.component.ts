@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Subject, Observable, timer } from 'rxjs';
-
+import { CameraService } from './camera.service';
+import { IVideo } from '../video/video';
+import { _appIdRandomProviderFactory } from '@angular/core/src/application_tokens';
 @Component({
   selector: 'app-camera',
   templateUrl: './camera.component.html',
@@ -23,8 +25,12 @@ export class CameraComponent implements OnInit {
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
   private sub = null;
+  private frames: string[];
+
+  constructor(private cameraService: CameraService){}
 
   public ngOnInit(): void {
+    this.frames = [];
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
@@ -45,16 +51,12 @@ export class CameraComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     console.info('received webcam image', webcamImage);
     this.webcamImage = webcamImage;
-    this.sendImageToBack(webcamImage);
+    this.frames.push(webcamImage.imageAsBase64);
   }
 
   public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();
   }
 
-  private sendImageToBack(webcamImage: WebcamImage): void {
-    console.log("Imamge send to backend!");
-    //request z webcamImage.imageAsBase64 do backendu
-  }
 
 }
