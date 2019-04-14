@@ -66,7 +66,7 @@ export class VideoComponent implements OnInit {
     }
     var video = this.videos[this.currently_playing];
     if (this.frames.length != 0) {
-      this.videoService.sendImages(video, this.frames).subscribe(elem => console.log("LOG:", elem));
+      this.videoService.sendImages(video, this.frames).subscribe(elem => console.log);
       this.frames = [];
     }
     this.playVideo(video);
