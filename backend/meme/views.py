@@ -1,3 +1,8 @@
+import json
+from pprint import pprint
+from typing import List
+
+from django.http import JsonResponse
 from rest_framework import viewsets, generics, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -29,9 +34,11 @@ class VideoViewSet(viewsets.ModelViewSet):
         serializer = VideoSerializer(data=request.data)
 
         if serializer.is_valid():
-            frames = request["frames"] #TODO JSON
-            images = self.detector.convert_files(frames)
-            tmp = self.detector.process_files(images)/video.length
+            frames = serializer.initial_data['frames']
+            pprint(frames)
+
+            tmp = self.detector.convert_files(frames)/video.length
+            # tmp = self.detector.process_files(images)/video.length
             video.quality = (video.quality * video.views + tmp) / (video.views + 1)
             video.views = video.views + 1
             video.save()

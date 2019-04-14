@@ -22,6 +22,7 @@ export class VideoService {
 
   public sendImages(video: IVideo, frames: string[]): Observable<PostRequestBody> {
     var post_request_body: PostRequestBody = new PostRequestBody(video.length, video.url, frames);
+	console.log(post_request_body)
     let url = this.videosUrl + video.url + this.put_url_end;
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
