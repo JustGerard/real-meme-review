@@ -18,3 +18,7 @@ button {
 #webcam {
     display: none;
 }
+#starting_button {
+    padding-left: 10.6vw;
+    padding-right: 10.6vw;
+}

@@ -87,8 +87,8 @@ export class VideoComponent implements OnInit {
   public handleInitError(error: WebcamInitError): void {
     this.errors.push(error);
   }
-
   public handleImage(webcamImage: WebcamImage): void {
+
     this.webcamImage = webcamImage;
     this.frames.push(webcamImage.imageAsBase64);
   }
@@ -97,5 +97,9 @@ export class VideoComponent implements OnInit {
     return this.trigger.asObservable();
   }
 
+  public startWatching(){
+    this.display_video = true;
+    this.playNextVideo();
+  }
 }
 
