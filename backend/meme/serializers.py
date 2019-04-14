@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from rest_framework import serializers
 
 from meme.models import Video, Ranking
@@ -26,7 +26,17 @@ class VideoSerializer(serializers.Serializer):
             video.views = video.views + 1
             video.length = video.length
             video.save()
-        return video
+
+        # return video
+
+        # response = {}
+        # response["Access-Control-Allow-Origin"] = "*"
+        # response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        # response["Access-Control-Max-Age"] = "1000"
+        # response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+        #
+        return JsonResponse(video)
+        # return video
 
 
 class RankingSerializer(serializers.Serializer):
