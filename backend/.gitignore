@@ -181,3 +181,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.idea/*.
+/haarcascade_smile.xml
+/haarcascade_frontalface_default.xml
+/geckodriver.exe

@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 from rest_framework import viewsets
-from rest_framework.response import Response
 
 from meme.models import Ranking, Video
 from meme.serializers import RankingSerializer, VideoSerializer
