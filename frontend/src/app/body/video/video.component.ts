@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { VideoService } from './video.service';
-import { Video } from './video';
-import { timer } from 'rxjs';
-import { delay } from 'q';
+import { IVideo } from './video';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-video',
@@ -14,22 +13,31 @@ export class VideoComponent implements OnInit {
   link;
   base_link = "https://www.youtube.com/embed/";
   constructor(private domSanitizer: DomSanitizer, private videoService: VideoService) { }
-  videos = [];
+  videos: IVideo[];
   sub = null;
   currently_playing = 0;
-
-  ngOnInit() {
-    this.showVideos();
-    // var video1: Video = new Video("CEzSXX3tcmU", 21, 1, 1000);
-    // var video2: Video = new Video("2FianKdFM44", 37, 1, 1000);
-    // this.videos.push(video1);
-    // this.videos.push(video2);
-    
-    this.playNextVideo();
+  loaded: boolean = false;
+  display_video = false;
+  async ngOnInit() {
+    await this.getVideos();
+    console.log("Waiting")
   }
-  
-  public playNextVideo(){
-    if(this.currently_playing == this.videos.length){
+
+  private getVideos() {
+    this.videoService.getVideos()
+    .subscribe(data => {
+      console.log(data);
+      this.loaded = true;
+      this.videos = data.results;
+      console.log(this.videos)
+    });
+  }
+
+  public playNextVideo() {
+    if(this.display_video == false){
+      this.display_video = true;
+    }
+    if (this.currently_playing == this.videos.length) {
       this.currently_playing = 0;
     }
     var video = this.videos[this.currently_playing];
@@ -37,17 +45,12 @@ export class VideoComponent implements OnInit {
     this.currently_playing++;
   }
 
-  private playVideo(video: Video){
-      console.log("Playing video ", video.url);
-      this.link = this.domSanitizer.bypassSecurityTrustResourceUrl(this.toYoutubeEmbedUrl(video.url));
+  private playVideo(video: IVideo) {
+    console.log("Playing video ", video.url);
+    this.link = this.domSanitizer.bypassSecurityTrustResourceUrl(this.toYoutubeEmbedUrl(video.url));
   }
   private toYoutubeEmbedUrl(id: string): string {
     return this.base_link + id;
   }
-
-  public showVideos() {
-    this.videoService.getVideos()
-      .subscribe(videos => this.videos = videos);
-
-  }
 }
+

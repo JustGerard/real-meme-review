@@ -43,8 +43,8 @@ class VideoSerializer(serializers.Serializer):
             # response["Access-Control-Max-Age"] = "1000"
             # response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
         #
-        # return JsonResponse(response)
-        return video
+        return JsonResponse(video)
+        # return video
 
 
 class RankingSerializer(serializers.Serializer):
