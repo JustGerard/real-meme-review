@@ -185,3 +185,4 @@ $RECYCLE.BIN/
 /haarcascade_smile.xml
 /haarcascade_frontalface_default.xml
 /geckodriver.exe
+/meme/migrations/*.

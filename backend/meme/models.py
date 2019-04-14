@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Video(models.Model):
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=200, primary_key=True)
     quality = models.FloatField(blank=True, default=0.0)
     views = models.IntegerField(blank=True, default=0)
     length = models.IntegerField()
