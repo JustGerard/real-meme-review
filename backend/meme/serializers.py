@@ -26,8 +26,19 @@ class VideoSerializer(serializers.Serializer):
             video.views = video.views + 1
             video.length = video.length
             video.save()
+<<<<<<< HEAD
 
         return video
+=======
+            # response = {}
+            # response["Access-Control-Allow-Origin"] = "*"
+            # response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+            # response["Access-Control-Max-Age"] = "1000"
+            # response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+        #
+        return JsonResponse(video)
+        # return video
+>>>>>>> fa4db120f5fb7e86b3b5e96c01a6d30ad7bdd78a
 
 
 class RankingSerializer(serializers.Serializer):
