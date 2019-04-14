@@ -50,14 +50,14 @@ export class VideoComponent implements OnInit {
 
   private getVideos() {
     this.videoService.getVideos()
-    .subscribe(data => {
-      this.loaded = true;
-      this.videos = data.results;
-    });
+      .subscribe(data => {
+        this.loaded = true;
+        this.videos = data.results;
+      });
   }
 
   public playNextVideo() {
-    if(this.display_video == false){
+    if (this.display_video == false) {
       this.display_video = true;
       this.frames = [];
     }
@@ -65,7 +65,7 @@ export class VideoComponent implements OnInit {
       this.currently_playing = 0;
     }
     var video = this.videos[this.currently_playing];
-    if(this.frames.length != 0) {
+    if (this.frames.length != 0) {
       this.videoService.sendImages(video, this.frames);
       this.frames = [];
     }
@@ -90,14 +90,15 @@ export class VideoComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
 
     this.webcamImage = webcamImage;
-    this.frames.push(webcamImage.imageAsBase64);
+    // console.log(webcamImage.imageAsDataUrl);
+    this.frames.push(webcamImage.imageAsDataUrl);
   }
 
   public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();
   }
 
-  public startWatching(){
+  public startWatching() {
     this.display_video = true;
     this.playNextVideo();
   }
