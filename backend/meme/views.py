@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from meme.models import Ranking, Video
 from meme.serializers import RankingSerializer, VideoSerializer
+from meme.smile_detector import SmileDetector
 
 
 class RankingViewSet(viewsets.ModelViewSet):
@@ -20,6 +21,7 @@ class RankingViewSet(viewsets.ModelViewSet):
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all().order_by('quality')
     serializer_class = VideoSerializer
+    detector = SmileDetector()
 
     @action(detail=True, methods=['post'])
     def update_video(self, request, pk=None):
@@ -27,7 +29,9 @@ class VideoViewSet(viewsets.ModelViewSet):
         serializer = VideoSerializer(data=request.data)
 
         if serializer.is_valid():
-            tmp = 1
+            frames = request["frames"] #TODO JSON
+            images = self.detector.convert_files(frames)
+            tmp = self.detector.process_files(images)/video.length
             video.quality = (video.quality * video.views + tmp) / (video.views + 1)
             video.views = video.views + 1
             video.save()

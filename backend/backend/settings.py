@@ -33,6 +33,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['real-meme-review-backend.herokuapp.com',
                  '127.0.0.1',
+                 'localhost',
                  ]
 
 # Application definition
