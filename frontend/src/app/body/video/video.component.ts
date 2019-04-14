@@ -38,7 +38,6 @@ export class VideoComponent implements OnInit {
 
   async ngOnInit() {
     await this.getVideos();
-    console.log("Waiting");
     this.frames = [];
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => {
@@ -52,10 +51,8 @@ export class VideoComponent implements OnInit {
   private getVideos() {
     this.videoService.getVideos()
     .subscribe(data => {
-      console.log(data);
       this.loaded = true;
       this.videos = data.results;
-      console.log(this.videos)
     });
   }
 
@@ -77,7 +74,6 @@ export class VideoComponent implements OnInit {
   }
 
   private playVideo(video: IVideo) {
-    console.log("Playing video ", video.url);
     this.link = this.domSanitizer.bypassSecurityTrustResourceUrl(this.toYoutubeEmbedUrl(video.url));
   }
   private toYoutubeEmbedUrl(id: string): string {
@@ -93,7 +89,6 @@ export class VideoComponent implements OnInit {
   }
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage);
     this.webcamImage = webcamImage;
     this.frames.push(webcamImage.imageAsBase64);
   }
